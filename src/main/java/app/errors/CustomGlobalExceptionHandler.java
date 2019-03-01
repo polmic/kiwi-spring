@@ -1,7 +1,5 @@
-package app.error;
+package app.errors;
 
-import app.error.user.UserNotFoundException;
-import app.error.user.UserUnsupportedFieldPatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,13 +11,16 @@ import java.io.IOException;
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    // Let Spring handle the exception, we just override the status code
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler({
+      UserNotFoundException.class,
+      UserGroupNotFoundException.class,
+      PlantNotFoundException.class
+    })
     public void springHandleNotFound(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
 
-    @ExceptionHandler(UserUnsupportedFieldPatchException.class)
+    @ExceptionHandler(UnsupportedFieldPatchException.class)
     public void springUnSupportedFieldPatch(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
     }

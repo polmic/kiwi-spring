@@ -1,4 +1,4 @@
-package app.error.user;
+package app.errors;
 
 public class UserNotFoundException extends RuntimeException {
 

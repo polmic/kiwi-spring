@@ -1,7 +1,7 @@
 package app.controllers;
 
-import app.error.user.UserNotFoundException;
-import app.error.user.UserUnsupportedFieldPatchException;
+import app.errors.UnsupportedFieldPatchException;
+import app.errors.UserNotFoundException;
 import app.models.User;
 import app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,7 @@ public class UserController {
 
           return repository.save(x);
         } else {
-          throw new UserUnsupportedFieldPatchException(update.keySet());
+          throw new UnsupportedFieldPatchException(update.keySet());
         }
 
       })
