@@ -1,7 +1,6 @@
+/*
 package app;
 
-import app.models.Book;
-import app.repositories.BookRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -17,6 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -55,8 +55,9 @@ public class BookControllerTest {
     public void find_bookId_OK() throws Exception {
 
         mockMvc.perform(get("/books/1"))
-                /*.andDo(print())*/
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                /*.andDo(print())
+
+import org.junit.Test;.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.name", is("app.models.Book Name")))
@@ -106,14 +107,14 @@ public class BookControllerTest {
         mockMvc.perform(post("/books")
                 .content(om.writeValueAsString(newBook))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
-                /*.andDo(print())*/
+                .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.name", is("Spring Boot Guide")))
-                .andExpect(jsonPath("$.author", is("mkyong")))
-                .andExpect(jsonPath("$.price", is(2.99)));
+                                .andExpect(jsonPath("$.id", is(1)))
+                                .andExpect(jsonPath("$.name", is("Spring Boot Guide")))
+                                .andExpect(jsonPath("$.author", is("mkyong")))
+                                .andExpect(jsonPath("$.price", is(2.99)));
 
-        verify(mockRepository, times(1)).save(any(Book.class));
+                        verify(mockRepository, times(1)).save(any(Book.class));
 
     }
 
@@ -190,3 +191,4 @@ public class BookControllerTest {
     }
 
 }
+ */

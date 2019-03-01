@@ -1,5 +1,7 @@
 package app.error;
 
+import app.error.user.UserNotFoundException;
+import app.error.user.UserUnsupportedFieldPatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,12 +14,12 @@ import java.io.IOException;
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     // Let Spring handle the exception, we just override the status code
-    @ExceptionHandler(BookNotFoundException.class)
+    @ExceptionHandler(UserNotFoundException.class)
     public void springHandleNotFound(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
 
-    @ExceptionHandler(BookUnSupportedFieldPatchException.class)
+    @ExceptionHandler(UserUnsupportedFieldPatchException.class)
     public void springUnSupportedFieldPatch(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
     }

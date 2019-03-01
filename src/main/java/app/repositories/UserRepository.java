@@ -1,7 +1,7 @@
 package app.repositories;
 
-import app.models.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import app.models.User;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }
