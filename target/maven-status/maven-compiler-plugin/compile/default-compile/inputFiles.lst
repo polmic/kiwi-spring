@@ -1,7 +1,0 @@
-/home/pmicas/workspace/kiwi/spring-boot/spring-rest-hello-world/src/main/java/com/mkyong/BookController.java
-/home/pmicas/workspace/kiwi/spring-boot/spring-rest-hello-world/src/main/java/com/mkyong/Book.java
-/home/pmicas/workspace/kiwi/spring-boot/spring-rest-hello-world/src/main/java/com/mkyong/BookRepository.java
-/home/pmicas/workspace/kiwi/spring-boot/spring-rest-hello-world/src/main/java/com/mkyong/error/BookUnSupportedFieldPatchException.java
-/home/pmicas/workspace/kiwi/spring-boot/spring-rest-hello-world/src/main/java/com/mkyong/error/CustomGlobalExceptionHandler.java
-/home/pmicas/workspace/kiwi/spring-boot/spring-rest-hello-world/src/main/java/com/mkyong/error/BookNotFoundException.java
-/home/pmicas/workspace/kiwi/spring-boot/spring-rest-hello-world/src/main/java/com/mkyong/StartBookApplication.java
