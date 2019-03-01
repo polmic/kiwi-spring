@@ -1,13 +1,18 @@
 package app.models;
 
 import lombok.Data;
-import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 @Data
 public class UserGroup {
 
+  @Id
+  @GeneratedValue
   private Long id;
   private List<Long> userIds;
 
