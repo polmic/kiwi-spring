@@ -22,15 +22,8 @@ public class UserController {
     this.repository = repository;
   }
 
-  // Find
-  @GetMapping("/users")
-  List<User> findAll() {
-    return repository.findAll();
-  }
-
   // Save
   @PostMapping("/users")
-  //return 201 instead of 200
   @ResponseStatus(HttpStatus.CREATED)
   User newUser(@RequestBody User newUser) {
     return repository.save(newUser);
@@ -49,7 +42,7 @@ public class UserController {
 
     return repository.findById(id)
       .map(x -> {
-        x.setName(newUser.getName());
+        x.setUsername(newUser.getUsername());
         x.setEmail(newUser.getEmail());
         x.setPassword(newUser.getPassword());
         return repository.save(x);
@@ -58,29 +51,6 @@ public class UserController {
         newUser.setId(id);
         return repository.save(newUser);
       });
-  }
-
-  // update password only
-  @PatchMapping("/users/{id}")
-  User patch(@RequestBody Map<String, String> update, @PathVariable Long id) {
-
-    return repository.findById(id)
-      .map(x -> {
-
-        String password = update.get("password");
-        if (!StringUtils.isEmpty(password)) {
-          x.setPassword(password);
-
-          return repository.save(x);
-        } else {
-          throw new UnsupportedFieldPatchException(update.keySet());
-        }
-
-      })
-      .orElseGet(() -> {
-        throw new UserNotFoundException(id);
-      });
-
   }
 
   @DeleteMapping("/users/{id}")
