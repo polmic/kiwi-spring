@@ -1,43 +1,37 @@
 package app.controllers;
 
-import app.errors.UnsupportedFieldPatchException;
-import app.errors.UserNotFoundException;
 import app.models.User;
-import app.repositories.UserRepository;
+import app.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 public class UserController {
 
-  private final UserRepository repository;
+  private final UsersRepository repository;
 
   @Autowired
-  public UserController(UserRepository repository) {
+  public UserController(UsersRepository repository) {
     this.repository = repository;
   }
 
   // Save
-  @PostMapping("/users")
+  @PostMapping(path="/user", consumes = "application/json", produces = "application/json")
   @ResponseStatus(HttpStatus.CREATED)
   User newUser(@RequestBody User newUser) {
+    System.out.println(newUser.toString());
     return repository.save(newUser);
   }
 
   // Find
-  @GetMapping("/users/{id}")
+  @GetMapping("/user/{id}")
   User findOne(@PathVariable Long id) {
-    return repository.findById(id)
-      .orElseThrow(() -> new UserNotFoundException(id));
+    return repository.findById(id).orElseThrow(() -> new RuntimeException(""+id));
   }
 
   // Save or update
-  @PutMapping("/users/{id}")
+  @PutMapping("/user/{id}")
   User saveOrUpdate(@RequestBody User newUser, @PathVariable Long id) {
 
     return repository.findById(id)
@@ -53,7 +47,7 @@ public class UserController {
       });
   }
 
-  @DeleteMapping("/users/{id}")
+  @DeleteMapping("/user/{id}")
   void deleteUser(@PathVariable Long id) {
     repository.deleteById(id);
   }

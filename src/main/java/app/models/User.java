@@ -10,7 +10,7 @@ import java.util.List;
 public class User {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
   private Long id;
   private String username;
   private String email;
