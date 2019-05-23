@@ -1,7 +1,7 @@
 package app.services;
 
-import app.repositories.HomeRepository;
 import app.models.Home;
+import app.repositories.HomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,37 +11,46 @@ import java.util.List;
 @Service
 public class HomeService {
 
+    private final HomeRepository homeRepository;
+
     @Autowired
-    private HomeRepository homeRepository;
+    public HomeService(HomeRepository homeRepository) {
+        this.homeRepository = homeRepository;
+    }
 
     // Retrieve all rows from table and populate list with objects
     public List getAllHomes() {
-
         List homes = new ArrayList<>();
         homeRepository.findAll().forEach(homes::add);
-
         return homes;
     }
 
-    // Retrieves one row from table based on given id
-    //  public Home getHome(Long id) {
-    public void getHome(Long id) {
-        //return homeRepository.findOne(id);
+    public Home getHome(Long id) {
+        return homeRepository.findById(id).orElseThrow(() -> new RuntimeException("" + id));
     }
 
-    // Inserts row into table
-    public void addHome(Home home) {
+    public Home addHome(Home home) {
         homeRepository.save(home);
+        // Todo : + de contrôle sur le résultat de l'opération
+        return home;
     }
 
-    // Updates row in table
-    public void updateHome(Long id, Home home) {
-        homeRepository.save(home);
+    public Home updateHome(Long id, Home home) {
+        return homeRepository.findById(id)
+                .map(x -> {
+                    x.setHomeName(home.getHomeName());
+                    return homeRepository.save(x);
+                })
+                .orElseGet(() -> {
+                    home.setId(id);
+                    return homeRepository.save(home);
+                });
     }
 
-    // Removes row from table
-    public void deleteHome(Home id) {
-        homeRepository.delete(id);
+    public void deleteHome(Long id) {
+        homeRepository.deleteById(id);
+        // Todo : + de contrôle sur le résultat de l'opération
+        //homeRepository.delete(home);
     }
 
 }
