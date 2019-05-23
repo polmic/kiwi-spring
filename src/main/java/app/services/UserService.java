@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class UserService {
 
+  private final UsersRepository usersRepository;
+
   @Autowired
-  private UsersRepository usersRepository;
+  public UserService(UsersRepository usersRepository) {
+    this.usersRepository = usersRepository;
+  }
 
   public List getAllUsers() {
     List users = new ArrayList<>();
@@ -20,19 +24,33 @@ public class UserService {
     return users;
   }
 
-   public void getUser(Long id) {
+  public User getUser(Long id) {
+    return usersRepository.findById(id).orElseThrow(() -> new RuntimeException("" + id));
   }
 
-  public void addUser(User user) {
+  public User addUser(User user) {
     usersRepository.save(user);
+    // Todo : + de contrôle sur le résultat de l'opération
+    return user;
   }
 
-  public void updateUser(Long id, User user) {
-    usersRepository.save(user);
+  public User updateUser(Long id, User user) {
+    return usersRepository.findById(id)
+            .map(x -> {
+              x.setUsername(user.getUsername());
+              x.setPassword(user.getPassword());
+              return usersRepository.save(x);
+            })
+            .orElseGet(() -> {
+              user.setId(id);
+              return usersRepository.save(user);
+            });
   }
 
-  public void deleteUser(User id) {
-    usersRepository.delete(id);
+  public void deleteUser(Long id) {
+    usersRepository.deleteById(id);
+    // Todo : + de contrôle sur le résultat de l'opération
+    //usersRepository.delete(user);
   }
 
 }

@@ -2,7 +2,6 @@ package app.services;
 
 import app.models.OngoingAction;
 import app.repositories.OngoingActionsRepository;
-import app.repositories.PossibleActionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,16 +24,22 @@ public class OngoingActionService {
         return actions;
     }
 
+    public OngoingAction addAction(OngoingAction action) {
+        ongoingActionsRepository.save(action);
+        // Todo : + de contrôle sur le résultat de l'opération
+        return action;
+    }
+
     public void getOngoingAction(Long id) {
         //return ongoingActionRepository.findOne(id);
     }
 
-    public void addOngoingAction(OngoingAction ongoingAction) {
-        ongoingActionsRepository.save(ongoingAction);
+    public void addOngoingAction(OngoingAction action) {
+        ongoingActionsRepository.save(action);
     }
 
-    public void updateOngoingAction(Long id, OngoingAction ongoingAction) {
-        ongoingActionsRepository.save(ongoingAction);
+    public void updateOngoingAction(Long id, OngoingAction action) {
+        ongoingActionsRepository.save(action);
     }
 
     public void deleteOngoingAction(OngoingAction id) {
