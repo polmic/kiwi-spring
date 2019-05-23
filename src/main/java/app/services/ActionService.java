@@ -1,5 +1,6 @@
 package app.services;
 
+import app.models.Identities.OngoingActionIdentity;
 import app.models.OngoingAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,8 @@ public class ActionService {
 
     public OngoingAction add(Long possibleActionId, Long plantId) {
         LocalDate creationDate = LocalDate.now();
-        OngoingAction newAction = new OngoingAction(possibleActionId, plantId, creationDate, false);
+        OngoingActionIdentity identity = new OngoingActionIdentity(possibleActionId, plantId);
+        OngoingAction newAction = new OngoingAction(identity, creationDate, false);
         return ongoingActionService.addAction(newAction);
         // Todo : + de contrôle sur le résultat de l'opération
     }

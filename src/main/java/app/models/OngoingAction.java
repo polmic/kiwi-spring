@@ -1,24 +1,17 @@
 package app.models;
 
+import app.models.Identities.OngoingActionIdentity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
 @Data
+@Entity
 public class OngoingAction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    //TODO make pk with union of two ids
-    private Long possibleActionId;
-    private Long plantId;
-
+    @EmbeddedId
+    private OngoingActionIdentity identity;
     private LocalDate creationDate;
     private LocalDate realisationDate;
     private boolean isDone;
@@ -26,16 +19,14 @@ public class OngoingAction {
     public OngoingAction() {
     }
 
-    public OngoingAction(Long possibleActionId, Long plantId, LocalDate creationDate, boolean isDone) {
-        this.possibleActionId = possibleActionId;
-        this.plantId = plantId;
+    public OngoingAction(OngoingActionIdentity identity, LocalDate creationDate, boolean isDone) {
+        this.identity = identity;
         this.creationDate = creationDate;
         this.isDone = isDone;
     }
 
-    public OngoingAction(Long possibleActionId, Long plantId, LocalDate creationDate, LocalDate realisationDate, boolean isDone) {
-        this.possibleActionId = possibleActionId;
-        this.plantId = plantId;
+    public OngoingAction(OngoingActionIdentity identity, LocalDate creationDate, LocalDate realisationDate, boolean isDone) {
+        this.identity = identity;
         this.creationDate = creationDate;
         this.realisationDate = realisationDate;
         this.isDone = isDone;

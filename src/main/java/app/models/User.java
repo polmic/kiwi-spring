@@ -13,14 +13,16 @@ public class User {
   private Long id;
   private String username;
   private String password;
+  private Long homeId;
 
   public User() {
   }
 
-  public User(Long id, String username, String password) {
+  public User(Long id, String username, String password, Long homeId) {
     this.id = id;
     this.username = username;
     this.password = password;
+    this.homeId = homeId;
   }
 
   public User(String username, String password) {
