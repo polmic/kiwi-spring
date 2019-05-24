@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.models.ApiResponse;
 import app.models.Home;
 import app.services.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +20,36 @@ public class HomeController {
     // Save
     @PostMapping(path = "/home", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    Home newHome(@RequestBody Home newHome) {
-        System.out.println(newHome.toString());
-        return homeService.addHome(newHome);
+    ApiResponse<Home> addHome(@RequestBody Home home) {
+        ApiResponse<Home> response = new ApiResponse<>();
+        response.setResponse(homeService.addHome(home));
+        response.setTotal(1);
+        return response;
     }
 
-    // Find
     @GetMapping("/home/{id}")
-    Home findOne(@PathVariable Long id) {
-        return homeService.getHome(id);
+    ApiResponse<Home> getHomeById(@PathVariable Long id) {
+        ApiResponse<Home> response = new ApiResponse<>();
+        response.setResponse(homeService.getHome(id));
+        response.setTotal(1);
+        return response;
     }
 
-    // Save or update
     @PutMapping("/home/{id}")
-    Home saveOrUpdate(@RequestBody Home newHome, @PathVariable Long id) {
-        return homeService.updateHome(id, newHome);
+    ApiResponse<Home> updateHome(@RequestBody Home newHome, @PathVariable Long id) {
+        ApiResponse<Home> response = new ApiResponse<>();
+        response.setResponse(homeService.updateHome(id, newHome));
+        response.setTotal(1);
+        return response;
     }
 
     @DeleteMapping("/home/{id}")
-    void deleteHome(@PathVariable Long id) {
-        homeService.deleteHome(id);
+    ApiResponse<Boolean> deleteHome(@PathVariable Long id) {
+        ApiResponse<Boolean> response = new ApiResponse<>();
+        response.setResponse(homeService.deleteHome(id));
+        response.setTotal(1);
+        return response;
+
     }
 
 }
