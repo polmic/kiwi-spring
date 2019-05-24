@@ -47,10 +47,9 @@ public class HomeService {
                 });
     }
 
-    public void deleteHome(Long id) {
+    public boolean deleteHome(Long id) {
         homeRepository.deleteById(id);
-        // Todo : + de contrôle sur le résultat de l'opération
-        //homeRepository.delete(home);
+        return homeRepository.existsById(id);
     }
 
 }

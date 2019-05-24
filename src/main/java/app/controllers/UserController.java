@@ -1,7 +1,7 @@
 package app.controllers;
 
+import app.models.ApiResponse;
 import app.models.User;
-import app.repositories.UsersRepository;
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,28 +17,40 @@ public class UserController {
     this.userService = userService;
   }
 
-  // Save
   @PostMapping(path="/user", consumes = "application/json", produces = "application/json")
   @ResponseStatus(HttpStatus.CREATED)
-  User newUser(@RequestBody User newUser) {
-    return userService.addUser(newUser);
+  ApiResponse<User> addUser(@RequestBody User user) {
+    ApiResponse<User> response = new ApiResponse<>();
+    response.setResponse(userService.addUser(user));
+    response.setTotal(1);
+    return response;
   }
 
-  // Find
-  @GetMapping("/user/{id}")
-  User findOne(@PathVariable Long id) {
-    return userService.getUser(id);
+  @GetMapping(path = "/user/{id}", consumes = "application/json", produces = "application/json")
+  @ResponseStatus(HttpStatus.OK)
+  ApiResponse<User> getUserById(@PathVariable Long id) {
+    ApiResponse<User> response = new ApiResponse<>();
+    response.setResponse(userService.getUser(id));
+    response.setTotal(1);
+    return response;
   }
 
-  // Save or update
-  @PutMapping("/user/{id}")
-  User saveOrUpdate(@RequestBody User newUser, @PathVariable Long id) {
-    return userService.updateUser(id, newUser);
+  @PutMapping(path = "/user/{id}", consumes = "application/json", produces = "application/json")
+  @ResponseStatus(HttpStatus.OK)
+  ApiResponse<User> updateUser(@RequestBody User user, @PathVariable Long id) {
+    ApiResponse<User> response = new ApiResponse<>();
+    response.setResponse(userService.updateUser(id, user));
+    response.setTotal(1);
+    return response;
   }
 
-  @DeleteMapping("/user/{id}")
-  void deleteUser(@PathVariable Long id) {
-    userService.deleteUser(id);
+  @DeleteMapping(path = "/user/{id}", consumes = "application/json", produces = "application/json")
+  @ResponseStatus(HttpStatus.OK)
+  ApiResponse<Boolean> deleteUser(@PathVariable Long id) {
+    ApiResponse<Boolean> response = new ApiResponse<>();
+    response.setResponse(userService.deleteUser(id));
+    response.setTotal(1);
+    return response;
   }
 
 }

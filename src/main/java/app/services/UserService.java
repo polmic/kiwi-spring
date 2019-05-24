@@ -29,9 +29,7 @@ public class UserService {
   }
 
   public User addUser(User user) {
-    usersRepository.save(user);
-    // Todo : + de contrôle sur le résultat de l'opération
-    return user;
+      return usersRepository.save(user);
   }
 
   public User updateUser(Long id, User user) {
@@ -47,10 +45,9 @@ public class UserService {
             });
   }
 
-  public void deleteUser(Long id) {
-    usersRepository.deleteById(id);
-    // Todo : + de contrôle sur le résultat de l'opération
-    //usersRepository.delete(user);
+    public boolean deleteUser(Long id) {
+        usersRepository.deleteById(id);
+        return usersRepository.existsById(id);
   }
 
 }

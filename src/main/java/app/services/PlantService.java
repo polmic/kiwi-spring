@@ -18,12 +18,9 @@ public class PlantService {
         this.plantRepository = plantRepository;
     }
 
-    // Retrieve all rows from table and populate list with objects
     public List getAllPlant() {
-
         List plant = new ArrayList<>();
         plantRepository.findAll().forEach(plant::add);
-
         return plant;
     }
 
@@ -32,9 +29,7 @@ public class PlantService {
     }
 
     public Plant addPlant(Plant plant) {
-        plantRepository.save(plant);
-        // Todo : + de contrôle sur le résultat de l'opération
-        return plant;
+        return plantRepository.save(plant);
     }
 
     public Plant updatePlant(Long id, Plant plant) {
@@ -49,11 +44,9 @@ public class PlantService {
                 });
     }
 
-    public void deletePlant(Long id) {
+    public boolean deletePlant(Long id) {
         plantRepository.deleteById(id);
-        //TODO : + de contrôle sur le résultat de l'opération
-        //TODO : delete ongoingActions for this plant
-        //plantRepository.delete(plant);
+        return plantRepository.existsById(id);
     }
 
 }
