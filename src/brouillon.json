@@ -1,0 +1,48 @@
+{"message":"User not allowed.","total":-1,"response":null,"msgid":"api.error.notAllowed","msgparam":null}
+
+page de login
+menu
+page pour home
+page pour plants
+page pour actions a venir
+
+https://trefle.io/some-url?token=Rzcrcm9sK1I4Tk1KdDZsOGY0NnlZZz09
+
+
+------------------------------
+Connexion
+-------------
+
+Store user.homeId;
+
+List<Plants> plants = GetUserPlants(user.id)
+
+if (plants)
+	for (plant p : plants)
+		getOngoingActions(plant.id);
+
+
+addPlant
+plantModel: {
+	name,
+	image,
+	homeId;
+}
+plantDummy: {
+	name: 'olivier',
+	image: '/dcim/gallery/imgId',
+	homeId: 1
+}
+
+
+
+-----------------------------------------------
+Done
+--------------
+
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpcCI6WzQ4LDQ2LDQ4LDQ2LDQ4LDQ2LDQ4XSwiaXNzdWVyX2lkIjo2NDcsIm9yaWdpbiI6InBtY3MiLCJhdWQiOiJKb2tlbiIsImV4cCI6MTU1ODcxNTQ2NSwiaWF0IjoxNTU4NzA4MjY1LCJpc3MiOiJKb2tlbiIsImp0aSI6IjJtZ3E5cTZlcjNsY3I2OGx1NDA1ZDZvMSIsIm5iZiI6MTU1ODcwODI2NX0.ey3tOW43gaOq-Ks5X2t63h--vzFOjV5ibsJzCmXOMn0",
+"expiration":1558715465}
+
+
+
+curl --request GET https://trefle.io/api/plants?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpcCI6WzQ4LDQ2LDQ4LDQ2LDQ4LDQ2LDQ4XSwiaXNzdWVyX2lkIjo2NDcsIm9yaWdpbiI6InBtY3MiLCJhdWQiOiJKb2tlbiIsImV4cCI6MTU1ODcxNTQ2NSwiaWF0IjoxNTU4NzA4MjY1LCJpc3MiOiJKb2tlbiIsImp0aSI6IjJtZ3E5cTZlcjNsY3I2OGx1NDA1ZDZvMSIsIm5iZiI6MTU1ODcwODI2NX0.ey3tOW43gaOq-Ks5X2t63h--vzFOjV5ibsJzCmXOMn0

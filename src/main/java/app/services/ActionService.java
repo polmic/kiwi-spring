@@ -29,15 +29,13 @@ public class ActionService {
     }
 
     public OngoingAction findOngoingAction(Long actionId, Long plantId) {
-        //TODO : query
-        return new OngoingAction();
+        List<OngoingAction> ongoingActions = ongoingActionService.getOngoingAction(actionId, plantId);
+        return ongoingActions.get(0);
     }
 
     public OngoingAction add(Long possibleActionId, Long plantId) {
         LocalDate creationDate = LocalDate.now();
-        OngoingActionIdentity identity = new OngoingActionIdentity(possibleActionId, plantId);
-        OngoingAction newAction = new OngoingAction(identity, creationDate, false);
+        OngoingAction newAction = new OngoingAction(possibleActionId, plantId, creationDate, false);
         return ongoingActionService.addAction(newAction);
-        // Todo : + de contrôle sur le résultat de l'opération
     }
 }

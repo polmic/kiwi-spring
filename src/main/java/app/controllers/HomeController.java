@@ -17,7 +17,6 @@ public class HomeController {
         this.homeService = homeService;
     }
 
-    // Save
     @PostMapping(path = "/home", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     ApiResponse<Home> addHome(@RequestBody Home home) {
@@ -27,7 +26,7 @@ public class HomeController {
         return response;
     }
 
-    @GetMapping("/home/{id}")
+    @GetMapping(path = "/home/{id}", produces = "application/json")
     ApiResponse<Home> getHomeById(@PathVariable Long id) {
         ApiResponse<Home> response = new ApiResponse<>();
         response.setResponse(homeService.getHome(id));
@@ -35,7 +34,8 @@ public class HomeController {
         return response;
     }
 
-    @PutMapping("/home/{id}")
+
+    @PutMapping(path = "/home/{id}", consumes = "application/json", produces = "application/json")
     ApiResponse<Home> updateHome(@RequestBody Home newHome, @PathVariable Long id) {
         ApiResponse<Home> response = new ApiResponse<>();
         response.setResponse(homeService.updateHome(id, newHome));
@@ -43,7 +43,7 @@ public class HomeController {
         return response;
     }
 
-    @DeleteMapping("/home/{id}")
+    @DeleteMapping(path = "/home/{id}", produces = "application/json")
     ApiResponse<Boolean> deleteHome(@PathVariable Long id) {
         ApiResponse<Boolean> response = new ApiResponse<>();
         response.setResponse(homeService.deleteHome(id));

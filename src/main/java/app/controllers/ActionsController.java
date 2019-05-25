@@ -26,10 +26,7 @@ public class ActionsController {
         return response;
     }
 
-    @GetMapping(path = "/action/{actionId}/plant/{plantId}",
-            consumes = "application/json",
-            produces = "application/json"
-    )
+    @GetMapping(path = "/action/{actionId}/plant/{plantId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     ApiResponse<OngoingAction> getOngoingAction(@PathVariable Long actionId, @PathVariable Long plantId) {
         ApiResponse<OngoingAction> response = new ApiResponse<>();

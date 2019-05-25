@@ -26,7 +26,7 @@ public class UserController {
     return response;
   }
 
-  @GetMapping(path = "/user/{id}", consumes = "application/json", produces = "application/json")
+  @GetMapping(path = "/user/{id}", produces = "application/json")
   @ResponseStatus(HttpStatus.OK)
   ApiResponse<User> getUserById(@PathVariable Long id) {
     ApiResponse<User> response = new ApiResponse<>();
@@ -44,7 +44,7 @@ public class UserController {
     return response;
   }
 
-  @DeleteMapping(path = "/user/{id}", consumes = "application/json", produces = "application/json")
+  @DeleteMapping(path = "/user/{id}", produces = "application/json")
   @ResponseStatus(HttpStatus.OK)
   ApiResponse<Boolean> deleteUser(@PathVariable Long id) {
     ApiResponse<Boolean> response = new ApiResponse<>();
