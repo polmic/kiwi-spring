@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.exceptions.BusinessException;
 import app.models.ApiResponse;
 import app.models.Plant;
 import app.services.PlantService;
@@ -31,7 +32,7 @@ public class PlantController {
 
     @GetMapping(path = "/plant/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    ApiResponse<Plant> getPlantById(@PathVariable Long id) {
+    ApiResponse<Plant> getPlantById(@PathVariable Long id) throws BusinessException {
         ApiResponse<Plant> response = new ApiResponse<>();
         response.setResponse(plantService.getPlant(id));
         response.setTotal(1);
@@ -49,7 +50,7 @@ public class PlantController {
 
     @PutMapping(path = "/plant/{id}", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    ApiResponse<Plant> updatePlant(@RequestBody Plant plant, @PathVariable Long id) {
+    ApiResponse<Plant> updatePlant(@RequestBody Plant plant, @PathVariable Long id) throws BusinessException {
         ApiResponse<Plant> response = new ApiResponse<>();
         response.setResponse(plantService.updatePlant(id, plant));
         response.setTotal(1);

@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.exceptions.BusinessException;
 import app.models.ApiResponse;
 import app.models.Home;
 import app.services.HomeService;
@@ -27,7 +28,7 @@ public class HomeController {
     }
 
     @GetMapping(path = "/home/{id}", produces = "application/json")
-    ApiResponse<Home> getHomeById(@PathVariable Long id) {
+    ApiResponse<Home> getHomeById(@PathVariable Long id) throws BusinessException {
         ApiResponse<Home> response = new ApiResponse<>();
         response.setResponse(homeService.getHome(id));
         response.setTotal(1);
@@ -36,7 +37,7 @@ public class HomeController {
 
 
     @PutMapping(path = "/home/{id}", consumes = "application/json", produces = "application/json")
-    ApiResponse<Home> updateHome(@RequestBody Home newHome, @PathVariable Long id) {
+    ApiResponse<Home> updateHome(@RequestBody Home newHome, @PathVariable Long id) throws BusinessException {
         ApiResponse<Home> response = new ApiResponse<>();
         response.setResponse(homeService.updateHome(id, newHome));
         response.setTotal(1);
