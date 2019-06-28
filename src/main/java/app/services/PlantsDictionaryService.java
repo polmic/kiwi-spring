@@ -28,8 +28,15 @@ public class PlantsDictionaryService {
         List<PlantsDictionary> plantsDictionaries = new ArrayList<>();
         Pageable limit = PageRequest.of(0, 15);
         plantsDictionaryRepository.getDictionariesFromSearch(search, limit).forEach(plantsDictionaries::add);
+        formatCommonName(plantsDictionaries);
         return plantsDictionaries;
     }
 
+    private void formatCommonName(List<PlantsDictionary> plantsDictionaries) {
+        for (PlantsDictionary pl : plantsDictionaries) {
+            String formatted = pl.getCommonName().split(",")[0];
+            pl.setCommonName(formatted);
+        }
+    }
 
 }
