@@ -1,11 +1,14 @@
 package app.controllers;
 
+import app.exceptions.BusinessException;
 import app.models.ApiResponse;
 import app.models.Plant;
 import app.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class PlantController {
@@ -27,25 +30,34 @@ public class PlantController {
         return response;
     }
 
-    @GetMapping(path = "/plant/{id}", consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/plant/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    ApiResponse<Plant> getPlantById(@PathVariable Long id) {
+    ApiResponse<Plant> getPlantById(@PathVariable Long id) throws BusinessException {
         ApiResponse<Plant> response = new ApiResponse<>();
         response.setResponse(plantService.getPlant(id));
         response.setTotal(1);
         return response;
     }
 
+    @GetMapping(path = "/plant/home/{homeId}", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    ApiResponse<List<Plant>> getPlantsByHomeId(@PathVariable Long homeId) {
+        ApiResponse<List<Plant>> response = new ApiResponse<>();
+        response.setResponse(plantService.getPlantsByHomeId(homeId));
+        response.setTotal(1);
+        return response;
+    }
+
     @PutMapping(path = "/plant/{id}", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    ApiResponse<Plant> updatePlant(@RequestBody Plant plant, @PathVariable Long id) {
+    ApiResponse<Plant> updatePlant(@RequestBody Plant plant, @PathVariable Long id) throws BusinessException {
         ApiResponse<Plant> response = new ApiResponse<>();
         response.setResponse(plantService.updatePlant(id, plant));
         response.setTotal(1);
         return response;
     }
 
-    @DeleteMapping(path = "/plant/{id}", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(path = "/plant/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     ApiResponse<Boolean> deletePlant(@PathVariable Long id) {
         ApiResponse<Boolean> response = new ApiResponse<>();

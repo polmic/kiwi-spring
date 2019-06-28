@@ -30,19 +30,15 @@ public class OngoingActionService {
         return action;
     }
 
-    public void getOngoingAction(Long id) {
-        //return ongoingActionRepository.findOne(id);
+    public List<OngoingAction> getOngoingAction(Long actionId, Long plantId) {
+        return ongoingActionsRepository.findOngoingAction(actionId, plantId);
     }
 
-    public void addOngoingAction(OngoingAction action) {
+    public void updateAction(Long id, OngoingAction action) {
         ongoingActionsRepository.save(action);
     }
 
-    public void updateOngoingAction(Long id, OngoingAction action) {
-        ongoingActionsRepository.save(action);
-    }
-
-    public void deleteOngoingAction(OngoingAction id) {
+    public void deleteAction(OngoingAction id) {
         ongoingActionsRepository.delete(id);
     }
 

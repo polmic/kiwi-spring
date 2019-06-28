@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.exceptions.BusinessException;
 import app.models.ApiResponse;
 import app.models.Home;
 import app.services.HomeService;
@@ -17,7 +18,6 @@ public class HomeController {
         this.homeService = homeService;
     }
 
-    // Save
     @PostMapping(path = "/home", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     ApiResponse<Home> addHome(@RequestBody Home home) {
@@ -27,23 +27,24 @@ public class HomeController {
         return response;
     }
 
-    @GetMapping("/home/{id}")
-    ApiResponse<Home> getHomeById(@PathVariable Long id) {
+    @GetMapping(path = "/home/{id}", produces = "application/json")
+    ApiResponse<Home> getHomeById(@PathVariable Long id) throws BusinessException {
         ApiResponse<Home> response = new ApiResponse<>();
         response.setResponse(homeService.getHome(id));
         response.setTotal(1);
         return response;
     }
 
-    @PutMapping("/home/{id}")
-    ApiResponse<Home> updateHome(@RequestBody Home newHome, @PathVariable Long id) {
+
+    @PutMapping(path = "/home/{id}", consumes = "application/json", produces = "application/json")
+    ApiResponse<Home> updateHome(@RequestBody Home newHome, @PathVariable Long id) throws BusinessException {
         ApiResponse<Home> response = new ApiResponse<>();
         response.setResponse(homeService.updateHome(id, newHome));
         response.setTotal(1);
         return response;
     }
 
-    @DeleteMapping("/home/{id}")
+    @DeleteMapping(path = "/home/{id}", produces = "application/json")
     ApiResponse<Boolean> deleteHome(@PathVariable Long id) {
         ApiResponse<Boolean> response = new ApiResponse<>();
         response.setResponse(homeService.deleteHome(id));

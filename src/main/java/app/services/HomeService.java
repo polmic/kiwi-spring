@@ -1,7 +1,9 @@
 package app.services;
 
+import app.exceptions.BusinessException;
 import app.models.Home;
 import app.repositories.HomeRepository;
+import app.toolkit.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,31 +27,30 @@ public class HomeService {
         return homes;
     }
 
-    public Home getHome(Long id) {
-        return homeRepository.findById(id).orElseThrow(() -> new RuntimeException("" + id));
+    public Home getHome(Long id) throws BusinessException {
+        return homeRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(Constants.ErrorMessage.ERROR_GET_HOME, Constants.MessageIds.ERROR_GET_HOME));
     }
 
     public Home addHome(Home home) {
         homeRepository.save(home);
-        // Todo : + de contrôle sur le résultat de l'opération
+        // Peut on savoir si l'opération a réussi ? Si oui :
+        // Changer l'id de home qui va être return
+        // Setter l'id de user.home_id
         return home;
     }
 
-    public Home updateHome(Long id, Home home) {
+    public Home updateHome(Long id, Home home) throws BusinessException {
         return homeRepository.findById(id)
                 .map(x -> {
                     x.setHomeName(home.getHomeName());
                     return homeRepository.save(x);
-                })
-                .orElseGet(() -> {
-                    home.setId(id);
-                    return homeRepository.save(home);
-                });
+                }).orElseThrow(() -> new BusinessException(Constants.ErrorMessage.ERROR_UPDATE_HOME, Constants.MessageIds.ERROR_UPDATE_HOME));
     }
 
     public boolean deleteHome(Long id) {
         homeRepository.deleteById(id);
-        return homeRepository.existsById(id);
+        return !homeRepository.existsById(id);
     }
 
 }

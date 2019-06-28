@@ -4,14 +4,19 @@ import app.models.Identities.OngoingActionIdentity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
 @Entity
+@Table(name="ongoingaction")
 public class OngoingAction {
 
-    @EmbeddedId
-    private OngoingActionIdentity identity;
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    private Long id;
+    private Long possibleActionId;
+    private Long plantId;
     private LocalDate creationDate;
     private LocalDate realisationDate;
     private boolean isDone;
@@ -19,14 +24,24 @@ public class OngoingAction {
     public OngoingAction() {
     }
 
-    public OngoingAction(OngoingActionIdentity identity, LocalDate creationDate, boolean isDone) {
-        this.identity = identity;
+    public OngoingAction(Long id, Long possibleActionId, Long plantId, LocalDate creationDate, boolean isDone) {
+        this.id = id;
+        this.possibleActionId = possibleActionId;
+        this.plantId = plantId;
         this.creationDate = creationDate;
         this.isDone = isDone;
     }
 
-    public OngoingAction(OngoingActionIdentity identity, LocalDate creationDate, LocalDate realisationDate, boolean isDone) {
-        this.identity = identity;
+    public OngoingAction(Long possibleActionId, Long plantId, LocalDate creationDate, boolean isDone) {
+        this.possibleActionId = possibleActionId;
+        this.plantId = plantId;
+        this.creationDate = creationDate;
+        this.isDone = isDone;
+    }
+
+    public OngoingAction(Long possibleActionId, Long plantId, LocalDate creationDate, LocalDate realisationDate, boolean isDone) {
+        this.possibleActionId = possibleActionId;
+        this.plantId = plantId;
         this.creationDate = creationDate;
         this.realisationDate = realisationDate;
         this.isDone = isDone;
