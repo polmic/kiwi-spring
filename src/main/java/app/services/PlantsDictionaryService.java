@@ -24,10 +24,10 @@ public class PlantsDictionaryService {
         return plantsDictionaryRepository.save(plantsDictionary);
     }
 
-    public List<PlantsDictionary> getPlantsDictionaries() {
+    public List<PlantsDictionary> getPlantsDictionaries(String search) {
         List<PlantsDictionary> plantsDictionaries = new ArrayList<>();
-        Pageable limit = PageRequest.of(0,10);
-        plantsDictionaryRepository.findAll(limit).forEach(plantsDictionaries::add);
+        Pageable limit = PageRequest.of(0, 15);
+        plantsDictionaryRepository.getDictionariesFromSearch(search, limit).forEach(plantsDictionaries::add);
         return plantsDictionaries;
     }
 

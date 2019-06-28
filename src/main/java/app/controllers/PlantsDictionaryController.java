@@ -24,7 +24,7 @@ public class PlantsDictionaryController {
     @ResponseStatus(HttpStatus.OK)
     ApiResponse<List<PlantsDictionary>> getPlantsDictionaries(@RequestParam String q) throws BusinessException {
         ApiResponse<List<PlantsDictionary>> response = new ApiResponse<>();
-        response.setResponse(plantsDictionaryService.getPlantsDictionaries());
+        response.setResponse(plantsDictionaryService.getPlantsDictionaries(q));
         response.setTotal(1);
         return response;
     }
