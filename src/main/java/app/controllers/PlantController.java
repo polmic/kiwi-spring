@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.exceptions.BusinessException;
 import app.models.ApiResponse;
+import app.models.Identities.PlantIdentity;
 import app.models.Plant;
 import app.services.PlantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PlantController {
@@ -23,9 +25,9 @@ public class PlantController {
     // Save
     @PostMapping(path = "/plant", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    ApiResponse<Plant> addPlant(@RequestBody Plant plant) {
+    ApiResponse<Plant> addPlant(@RequestBody Map<String, Long> json) {
         ApiResponse<Plant> response = new ApiResponse<>();
-        response.setResponse(plantService.addPlant(plant));
+        response.setResponse(plantService.addPlant(json.get("dicoId"), json.get("homeId")));
         response.setTotal(1);
         return response;
     }

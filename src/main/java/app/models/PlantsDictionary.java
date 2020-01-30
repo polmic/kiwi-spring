@@ -3,6 +3,7 @@ package app.models;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,6 +12,9 @@ import javax.persistence.Table;
 @Table(name = "plants_dictionary")
 public class PlantsDictionary {
 
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    private Long id;
     private String category;
     private String commonName;
     private String diseasesPests;
@@ -20,7 +24,6 @@ public class PlantsDictionary {
     private String flowersColor;
     private String foliageType;
     private String height;
-    @Id
     private String latinName;
     private String multiplicationMethods;
     private String origin;
@@ -40,7 +43,7 @@ public class PlantsDictionary {
     public PlantsDictionary() {
     }
 
-    public PlantsDictionary(String category, String commonName, String diseasesPests, String exposure, String family, String flowering, String flowersColor, String foliageType, String height, String latinName, String multiplicationMethods, String origin, String plantType, String plantationRepotting, String relatedSpecies, String rusticity, String soilAcidity, String soilHumidity, String soilType, String synonyms, String trimming, String toxicity, String plantUsage, String vegetationType) {
+    public PlantsDictionary(Long id, String category, String commonName, String diseasesPests, String exposure, String family, String flowering, String flowersColor, String foliageType, String height, String latinName, String multiplicationMethods, String origin, String plantType, String plantationRepotting, String relatedSpecies, String rusticity, String soilAcidity, String soilHumidity, String soilType, String synonyms, String trimming, String toxicity, String plantUsage, String vegetationType) {
         this.category = category;
         this.commonName = commonName;
         this.diseasesPests = diseasesPests;

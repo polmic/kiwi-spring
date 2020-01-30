@@ -20,6 +20,7 @@ public class PlantsDictionaryController {
         this.plantsDictionaryService = plantsDictionaryService;
     }
 
+    @CrossOrigin
     @GetMapping(path = "/search", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     ApiResponse<List<PlantsDictionary>> getPlantsDictionaries(@RequestParam String q) throws BusinessException {

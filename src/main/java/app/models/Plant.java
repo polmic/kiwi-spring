@@ -1,7 +1,7 @@
 package app.models;
 
+import app.models.Identities.PlantIdentity;
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,27 +9,20 @@ import javax.persistence.*;
 @Table(name="plant")
 public class Plant {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+    @EmbeddedId
+    private PlantIdentity identity;
     private String image;
-    private Long homeId;
 
     public Plant() {
     }
 
-    public Plant(Long id, String name, String image, Long homeId) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
-        this.homeId = homeId;
+    public Plant(PlantIdentity identity) {
+        this.identity = identity;
     }
 
-    public Plant(String name, String image, Long homeId) {
-        this.name = name;
+    public Plant(PlantIdentity identity, String image) {
+        this.identity = identity;
         this.image = image;
-        this.homeId = homeId;
     }
 
 }

@@ -1,6 +1,7 @@
 package app.services;
 
 import app.exceptions.BusinessException;
+import app.models.Identities.PlantIdentity;
 import app.models.Plant;
 import app.repositories.PlantRepository;
 import app.toolkit.Constants;
@@ -25,19 +26,23 @@ public class PlantService {
     }
 
     public List<Plant> getPlantsByHomeId(Long id) {
+        /*
         List<Plant> plants = plantRepository.findByHomeId(id);
         for (Plant p : plants) System.out.println(p.toString());
-        return plants;
+         */
+        return null;
     }
 
-    public Plant addPlant(Plant plant) {
-        return plantRepository.save(plant);
+    public Plant addPlant(Long dicoId, long homeId) {
+        PlantIdentity identity = new PlantIdentity(dicoId, homeId);
+        Plant newPlant = new Plant(identity);
+        return plantRepository.save(newPlant);
     }
 
     public Plant updatePlant(Long id, Plant plant) throws BusinessException {
         return plantRepository.findById(id)
                 .map(x -> {
-                    x.setName(plant.getName());
+                    x.setIdentity(plant.getIdentity());
                     return plantRepository.save(x);
                 })
                 .orElseThrow(() -> new BusinessException(Constants.ErrorMessage.ERROR_UPDATE_PLANT, Constants.MessageIds.ERROR_UPDATE_PLANT));
