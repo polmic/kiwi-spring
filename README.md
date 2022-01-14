@@ -5,4 +5,4 @@
 A SpringBoot Rest API.
 
 [Angular front](https://github.com/polmic/kiwi-ng).  
-[NodeJs API](https://github.com/polmic/plants_scrap).
+[NodeJs API](https://github.com/polmic/kiwi-node).
